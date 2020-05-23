@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  management:
+    image: harbor.ittim-online.com/avis/worker_management:latest
+    restart: always
+    hostname: management.weave.local
+    dns: 172.17.0.1
+    dns_search: weave.local
+    environment:
+      - NATS_PASS=${NATS_PASS}
+      - REGISTRY_USER=${REGISTRY_USER}
+      - REGISTRY_PASS=${REGISTRY_PASS}
+      - REGISTRY_SERVER=${REGISTRY_SERVER}
+      - MANAGEMENT_SERVER=${MANAGEMENT_SERVER}
+      - PORT=${PORT}
+      - STREAMS_VOLUME=streamsVolume
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/management:/opt/data
+      - streamsVolume:/opt/streams
+    ports:
+      - "${PORT}:${PORT}"
+      - "${CLIENT_PORT}:80"
+
+  nats:
+    image: nats
+    restart: always
+    hostname: nats.weave.local
+    dns: 172.17.0.1
+    dns_search: weave.local
+    command: --user root --pass ${NATS_PASS} -m 8222
+    environment:
+      - NATS_PASS=${NATS_PASS}
+
+  redis:
+    image: redis
+    hostname: redis.weave.local
+    dns: 172.17.0.1
+    dns_search: weave.local
+    command: redis-server --appendonly yes
+    restart: always
+
+networks:
+  default:
+    external:
+      name: weave
+
+volumes:
+  streamsVolume:
+    external: true
