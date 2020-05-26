@@ -8,9 +8,6 @@ services:
     dns_search: weave.local
     environment:
       - NATS_PASS=${NATS_PASS}
-      - REGISTRY_USER=${REGISTRY_USER}
-      - REGISTRY_PASS=${REGISTRY_PASS}
-      - REGISTRY_SERVER=${REGISTRY_SERVER}
       - MANAGEMENT_SERVER=${MANAGEMENT_SERVER}
       - PORT=${PORT}
       - STREAMS_VOLUME=streamsVolume
