@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   management:
-    image: harbor.ittim-online.com/avis/worker_management:latest
+    image: harbor.ittim-online.com/avis_public/worker_management:latest
     restart: always
     hostname: management.weave.local
     dns: 172.17.0.1
