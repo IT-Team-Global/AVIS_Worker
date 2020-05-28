@@ -19,6 +19,15 @@ services:
       - "${PORT}:${PORT}"
       - "${CLIENT_PORT}:80"
 
+  multicast_proxy:
+    image: harbor.ittim-online.com/avis_public/worker_multicast_proxy:latest
+    restart: always
+    network_mode: "host"
+    environment:
+      - MANAGEMENT_SERVER=${MANAGEMENT_SERVER}
+    volumes:
+      - ./data/management:/opt/data
+      
   nats:
     image: nats
     restart: always
