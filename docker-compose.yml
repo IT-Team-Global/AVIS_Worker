@@ -10,6 +10,7 @@ services:
       - NATS_PASS=${NATS_PASS}
       - MANAGEMENT_SERVER=${MANAGEMENT_SERVER}
       - PORT=${PORT}
+      - CLIENT_PORT=${CLIENT_PORT}
       - STREAMS_VOLUME=streamsVolume
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
