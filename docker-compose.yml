@@ -6,7 +6,7 @@ services:
     hostname: management.weave.local
     dns: 172.17.0.1
     dns_search: weave.local
-    stop_grace_period: 1m
+    stop_grace_period: 5m
     environment:
       - NATS_PASS=${NATS_PASS}
       - MANAGEMENT_SERVER=${MANAGEMENT_SERVER}
