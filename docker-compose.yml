@@ -13,11 +13,14 @@ services:
       - PORT=${PORT}
       - CLIENT_PORT=${CLIENT_PORT}
       - STREAMS_VOLUME=streamsVolume
+      - USE_MOUNT_FOR_TIMESHIFT=true
+      - TIMESHIFT_MOUNT=/opt/AVIS_Worker/data/timeshift/
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/management:/opt/data
       - ./data/vod/movies:/opt/vod/movies
       - streamsVolume:/opt/streams
+      - ./data/timeshift/:/opt/timeshift/
     ports:
       - "${PORT}:${PORT}"
       - "${CLIENT_PORT}:80"
