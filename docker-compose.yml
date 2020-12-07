@@ -1,11 +1,8 @@
 version: '3.7'
 services:
-  management:
+  worker-management:
     image: harbor.ittim-online.com/avis_public/worker_management:latest
     restart: always
-    hostname: management.weave.local
-    dns: 172.17.0.1
-    dns_search: weave.local
     stop_grace_period: 5m
     environment:
       - NATS_PASS=${NATS_PASS}
@@ -37,25 +34,19 @@ services:
   nats:
     image: nats
     restart: always
-    hostname: nats.weave.local
-    dns: 172.17.0.1
-    dns_search: weave.local
     command: --user root --pass ${NATS_PASS} -m 8222
     environment:
       - NATS_PASS=${NATS_PASS}
 
   redis:
     image: redis
-    hostname: redis.weave.local
-    dns: 172.17.0.1
-    dns_search: weave.local
     command: redis-server --appendonly yes
     restart: always
 
 networks:
   default:
     external:
-      name: weave
+      name: avis
 
 volumes:
   streamsVolume:
